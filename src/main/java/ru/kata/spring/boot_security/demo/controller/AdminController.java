@@ -8,10 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
-//import ru.kata.kata312.model.User;
-//import ru.kata.kata312.service.UserService;
-//
-//import javax.validation.Valid;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -32,7 +29,8 @@ public class AdminController {
         List<User> userListToView = userService.getAllUserList();
         model.addAttribute("userList", userListToView);
         model.addAttribute("newUser", new User());
-        return "indexUser";
+        model.addAttribute("listRoles", userService.getListRoles());
+        return "admin";
     }
 
     @DeleteMapping("/{id}")
@@ -52,27 +50,16 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("listRoles", userService.getListRoles());
         return "editUser";
     }
 
     @PatchMapping("/{id}")
-    public String Update(@ModelAttribute("user") @Valid User updUser, BindingResult bindingResult, @PathVariable("id") int id)  {
+    public String Update(@ModelAttribute("user") @Valid User updUser, BindingResult bindingResult, @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
             return "redirect:/admin";
         userService.update(id, updUser);
-//        userService.update(updUser);
         return "redirect:/admin";
     }
-
-//    @PostMapping
-//    public String addUser(@RequestParam ("name") String name, @RequestParam ("surname") String surname,
-//                        @RequestParam ("email") String email, Model model){
-//        User user = new User();
-//        user.setName(name);
-//        user.setSurname(surname);
-//        user.setEmail(email);
-//        userService.addUser(user);
-//        return "redirect:/";
-//    }
 
 }

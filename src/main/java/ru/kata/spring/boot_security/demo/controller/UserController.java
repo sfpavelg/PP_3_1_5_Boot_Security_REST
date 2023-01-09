@@ -3,13 +3,12 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
-import java.util.List;
 
 
 @Controller
@@ -25,12 +24,10 @@ public class UserController {
 
     @GetMapping()
     public String viewUser(Principal principal, Model model) {
-        model.addAttribute("message", principal.getName());
-
-//        List<User> userListToView = userService.getAllUserList();
-//        model.addAttribute("userList", userListToView);
-//        model.addAttribute("newUser", new User());
-//        return "indexUser";
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("authority", principal.getName());
+        model.addAttribute("listRoles", userService.getListRoles());
         return "user";
     }
 

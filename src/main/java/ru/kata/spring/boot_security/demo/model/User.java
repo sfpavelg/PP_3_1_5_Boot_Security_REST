@@ -1,15 +1,14 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -25,29 +24,17 @@ public class User implements UserDetails {
     @Min(value = 0)
     private int age;
     @NotEmpty
+    @Column(unique = true)
     private String username;
     @NotEmpty
     private String password;
 
-    @ManyToMany (cascade = {CascadeType.DETACH, CascadeType.MERGE
-            , CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany (fetch = FetchType.LAZY)
     @JoinTable(
             name="users_roles"
             , joinColumns = @JoinColumn(name="user_id")
-            , inverseJoinColumns = @JoinColumn(name="roles_id"))
-    private List<Roles> roles;
-
-
-    public void addRoles(Roles role){
-        if (roles==null){
-            roles = new ArrayList<>();
-        }
-        roles.add(role);
-
-    }
-
-    //TODO сделать мэнитумэни
-
+            , inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Set<Roles> roles;
 
     public User() {
 
@@ -61,7 +48,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-
     public int getId() {
         return id;
     }
@@ -69,8 +55,6 @@ public class User implements UserDetails {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     public String getName() {
         return name;
@@ -100,8 +84,6 @@ public class User implements UserDetails {
         return username;
     }
 
-
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -114,6 +96,20 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public Set<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
+    }
+
+    public String rolesToString() {
+        String result = roles.stream()
+                .map(Roles::getName)
+                .collect(Collectors.joining(", "));
+        return result;
+    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -137,25 +133,26 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;  //TODO здесь должна быть логика
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for(Roles role: getRoles()){
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+        }
+        return grantedAuthorities;
     }
-
-
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && age == user.age && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(username, user.username);
+        return id == user.id && age == user.age && Objects.equals(name, user.name)
+                && Objects.equals(surname, user.surname) && Objects.equals(username, user.username);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name, surname, age, username);
     }
-
-
 
 }
 

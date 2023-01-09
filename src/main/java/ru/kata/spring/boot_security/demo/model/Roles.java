@@ -1,29 +1,28 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name="roles")
-public class Roles {
+@Table(name = "roles")
+public class Roles implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-//    @NotEmpty
     private String name;
 
-    @ManyToMany (cascade = {CascadeType.DETACH, CascadeType.MERGE
-            , CascadeType.PERSIST, CascadeType.REFRESH})
+    @Transient
+    @ManyToMany
     @JoinTable(
-            name="users_roles"
-            , joinColumns = @JoinColumn(name="roles_id")
-            , inverseJoinColumns = @JoinColumn(name="user_id"))
-    private List<User> users;
+            name = "users_roles"
+            , joinColumns = @JoinColumn(name = "role_id")
+            , inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users;
 
     public Roles(String name) {
         this.name = name;
@@ -32,13 +31,9 @@ public class Roles {
     public Roles() {
     }
 
-    public void addUser(User user){
-        if (users==null){
-            users = new ArrayList<>();
-        }
-        users.add(user);
-
-
+    @Override
+    public String getAuthority() {
+        return name;
     }
 
     public int getId() {
@@ -65,7 +60,16 @@ public class Roles {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Roles roles = (Roles) o;
+        return id == roles.id && name.equals(roles.name);
+    }
 
-    // TODO сделать роли
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
 }
