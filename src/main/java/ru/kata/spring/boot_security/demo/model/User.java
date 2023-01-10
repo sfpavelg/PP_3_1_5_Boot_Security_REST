@@ -29,7 +29,8 @@ public class User implements UserDetails {
     @NotEmpty
     private String password;
 
-    @ManyToMany (fetch = FetchType.LAZY)
+
+    @ManyToMany
     @JoinTable(
             name="users_roles"
             , joinColumns = @JoinColumn(name="user_id")

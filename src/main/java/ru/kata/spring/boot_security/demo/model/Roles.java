@@ -16,12 +16,7 @@ public class Roles implements GrantedAuthority {
 
     private String name;
 
-    @Transient
-    @ManyToMany
-    @JoinTable(
-            name = "users_roles"
-            , joinColumns = @JoinColumn(name = "role_id")
-            , inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
     public Roles(String name) {

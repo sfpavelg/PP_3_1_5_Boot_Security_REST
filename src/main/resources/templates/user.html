@@ -63,10 +63,6 @@
             <input type="text" th:field="*{username}" id="username" readonly/>
         </div>
         <div class="field">
-            <label for="password">Пароль</label>
-            <input type="text" th:field="*{password}" id="password" readonly/>
-        </div>
-        <div class="field">
             <label>Роли</label>
             <div>
                 <th:block th:each="role: ${listRoles}">
