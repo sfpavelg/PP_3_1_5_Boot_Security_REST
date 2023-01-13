@@ -1,83 +1,77 @@
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Users</title>
-    <style>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>User page</title>
+  </head>
+  <body>
+    <header>
+      <div class="container-fluid" >
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark" >
+          <a class="navbar-brand" style="color: LightGrey" href="#">admin@ with roles </a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          </div>
+          <form th:method="POST" th:action="@{/logout}">
+            <input type="submit" class="btn btn-dark" style="color: LightGrey" value="Logout">
+          </form>
+        </nav>
+      </div>
+    </header>
 
-        .field {clear:both; text-align:right; line-height:25px;}
-        label {float:left; padding-right:10px;}
-        .main {float:left}
-        .block{
-            position: absolute;
-            top: 20%;
-            left: 42%;
-        }
-        table{
-            border: 1px solid #eee;
-            table-layout: fixed;
-            width: 900px;
-            margin-bottom: 20px;
-            border-collapse:collapse;
-        }
-        th {
-            font-weight: bold;
-            padding: 5px;
-            background: #efefef;
-            border: 1px solid #dddddd;
-            text-align: left;
-        }
-        td{
-            padding: 5px 10px;
-            border: 1px solid #eee;
-            text-align: left;
-        }
-        table tbody tr:nth-child(odd){
-            background: #fff;
-        }
-        table tbody tr:nth-child(even){
-            background: #F7F7F7;
-        }
-    </style>
-</head>
-<body>
-<form method="POST" th:action="@{/logout}" th:object="${user}">
-    <div class="main block">
-        <h3>Страница пользователя</h3>
-        <div class="field">
-            <label for="name">Имя</label>
-            <input type="text" th:field="*{name}" id="name" readonly/>
+    <div class="container-fluid">
+      <div class="row">
+            <!--            Левая панель-->
+        <div class="col-2" style="height: 100vh" >
+          <br>
+          <nav class="nav flex-column">
+            <a class="nav-link btn" style="text-align: left; background-color: white" href="/admin">Admin</a>
+            <a class="nav-link active btn btn-primary" style="text-align: left;" href="#">User</a>
+          </nav>
         </div>
-        <div class="field">
-            <label for="surname">Фамилия</label>
-            <input type="text" th:field="*{surname}" id="surname" readonly/>
-        </div>
-        <div class="field">
-            <label for="age">Возраст</label>
-            <input type="text" th:field="*{age}" id="age" readonly/>
-        </div>
-        <div class="field">
-            <label for="username">Юзернэйм</label>
-            <input type="text" th:field="*{username}" id="username" readonly/>
-        </div>
-        <div class="field">
-            <label>Роли</label>
-            <div>
-                <th:block th:each="role: ${listRoles}">
-                    <input type="checkbox" th:field="*{roles}"
-                           th:text="${role.name}" th:value="${role.id}" disabled readonly/>
-                    <br>
-                </th:block>
+        <!--            Основная страница-->
+        <div class="col-10 bg-light" style="height: 100vh">
+          <div style="margin: 20px 20px 30px 20px;">
+            <br>
+            <h2>User-information page</h2>
+            <div class="tab-content border bg-white">
+                <div class="container-fluid bg-light border" style="margin: 0; padding: 10px 30px">
+                  <h4>About user</h4>
+                </div>
+                <div style="margin: 25px 25px 0px 25px;">
+                  <table class="table table-striped" style="background-color: white">
+                    <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Name</th>
+                      <th>Surname</th>
+                      <th>Age</th>
+                      <th>E-mail</th>
+                      <th>Roles</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+<!--                      <th scope="row">1</th>-->
+                      <td th:utext="${user.getId()}"></td>
+                      <td th:utext="${user.getName()}"></td>
+                      <td th:utext="${user.getSurname()}"></td>
+                      <td th:utext="${user.getAge()}"></td>
+                      <td th:utext="${user.getUsername()}"></td>
+                      <td th:utext="${user.rolesToString()}"></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
             </div>
+          </div>
         </div>
-        <br/>
-        <br>
-            <input type="submit" value="Разлогиниться"/>
+      </div>
     </div>
-</form>
 
-
-</body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>

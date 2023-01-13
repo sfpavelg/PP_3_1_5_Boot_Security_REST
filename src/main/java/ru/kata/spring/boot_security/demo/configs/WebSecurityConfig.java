@@ -20,14 +20,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
 //                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")   //эта строка, если на страницу юзера можно админа впускать админа без роли юзера.
                 .antMatchers("/user/**").hasRole("USER")   //эта строка, если на страницу юзера можно впускать админа, только если у него есть роль юзер.
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
+                .formLogin().loginPage("/login").loginProcessingUrl("/process_login").successHandler(successUserHandler).failureUrl("/login?error")
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/");
     }
