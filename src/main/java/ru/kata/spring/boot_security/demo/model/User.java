@@ -107,8 +107,8 @@ public class User implements UserDetails {
 
     public String rolesToString() {
         String result = roles.stream()
-                .map(Roles::getName)
-                .collect(Collectors.joining(", "));
+                .map(r -> r.getName().substring(5))
+                .collect(Collectors.joining("  "));
         return result;
     }
 
