@@ -5,8 +5,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,18 +15,17 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty
+
     private String name;
-    @NotEmpty
+
     private String surname;
-    @Min(value = 0)
+
     private int age;
-    @NotEmpty
+
     @Column(unique = true)
     private String username;
-    @NotEmpty
-    private String password;
 
+    private String password;
 
     @ManyToMany
     @JoinTable(
@@ -106,10 +103,9 @@ public class User implements UserDetails {
     }
 
     public String rolesToString() {
-        String result = roles.stream()
-                .map(r -> r.getName().substring(5))
+        return roles.stream()
+                .map(r -> r.getName().substring(5)).sorted()
                 .collect(Collectors.joining("  "));
-        return result;
     }
 
     @Override

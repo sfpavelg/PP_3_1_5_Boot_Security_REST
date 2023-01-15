@@ -23,9 +23,9 @@ public class DataLoader implements ApplicationRunner {
 
     public void run(ApplicationArguments args) {
 
-        User cat = new User("Кот", "Матроскин", 9, "cat", "cat");
-        User dog = new User("Пес", "Барбоскин", 12, "dog","dog");
-        User parrot = new User("Попугай", "Сильвер", 150, "parrot", "parrot");
+        User cat = new User("Кот", "Матроскин", 9, "cat@mail.ru", "cat");
+        User dog = new User("Пес", "Барбоскин", 12, "dog@mail.ru","dog");
+        User parrot = new User("Попугай", "Сильвер", 150, "parrot@mail.ru", "parrot");
         Roles admin = new Roles("ROLE_ADMIN");
         Roles user = new Roles("ROLE_USER");
 
