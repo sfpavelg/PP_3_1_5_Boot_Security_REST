@@ -95,27 +95,27 @@
                                                                             <div class="modal-body  col-6 ">
                                                                                     <div class="form-group">
                                                                                         <label for="idE">Id</label>
-                                                                                        <input type="text" class="form-control" id="idE" th:name="id" th:value="${user.getId()}" disabled>
+                                                                                        <input type="text" class="form-control" id="idE" name="id" th:value="${user.getId()}" disabled>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="nameE">Name</label>
-                                                                                        <input type="text" class="form-control" id="nameE" th:name="name" th:value="${user.getName()}" required>
+                                                                                        <input type="text" class="form-control" id="nameE" name="name" th:value="${user.getName()}" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="lastNameE">Last name</label>
-                                                                                        <input type="text" class="form-control" id="lastNameE" th:name="surname" th:value="${user.getSurname()}" required>
+                                                                                        <input type="text" class="form-control" id="lastNameE" name="surname" th:value="${user.getSurname()}" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="ageE">Age</label>
-                                                                                        <input type="number" class="form-control" id="ageE" min = "1" th:name="age" th:value="${user.getAge()}" required>
+                                                                                        <input type="number" class="form-control" id="ageE" min = "1" name="age" th:value="${user.getAge()}" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="emailE">Email</label>
-                                                                                        <input type="email" class="form-control" id="emailE" th:name="username" th:value="${user.getUsername()}" required>
+                                                                                        <input type="email" class="form-control" id="emailE" name="username" th:value="${user.getUsername()}" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="passwordE">Password</label>
-                                                                                        <input type="password" class="form-control" id="passwordE" th:name="password" th:value="${user.getPassword()}" required>
+                                                                                        <input type="password" class="form-control" id="passwordE" name="password" th:value="${user.getPassword()}" required>
                                                                                     </div>
                                                                                     <div class="form-group">
                                                                                         <label for="selectRolesE">Roles</label>
