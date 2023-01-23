@@ -14,7 +14,6 @@
                     <h2><strong>Please sign in</strong></h2>
                     <form action="/process_login" method="post">
                         <div class="form-group">
-                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                             <input type="text" class="form-control" name="username" id="username" placeholder="Email address"/>
                             <input type="password" class="form-control" name="password" id="password" placeholder="Password"/>
                         </div>

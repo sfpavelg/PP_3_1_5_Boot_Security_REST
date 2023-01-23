@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +10,7 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="roles")
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {

@@ -24,10 +24,8 @@ public class UserController {
 
     @GetMapping()
     public String viewUser(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        model.addAttribute("user", user);
-        model.addAttribute("authority", principal.getName());
-        model.addAttribute("listRoles", userService.getListRoles());
+        User authorizedUser = userService.findByUsername(principal.getName());
+        model.addAttribute("authorizedUser", authorizedUser);
         return "user";
     }
 
