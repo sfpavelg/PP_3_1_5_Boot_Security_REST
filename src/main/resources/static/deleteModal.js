@@ -17,12 +17,14 @@ async function deleteModalData(id) {
         age_del.value = user.age;
         username_del.value = user.username;
         if (user.roles.length === 2) {
-            roleAdmin_del.setAttribute('selected', 'true');
-            roleUser_del.setAttribute('selected', 'true');
+            roleAdmin_del .selected = true;
+            roleUser_del.selected = true;
         } else if (user.roles.length === 1 && (user.roles[0].id === 1)) {
-            roleAdmin_del.setAttribute('selected', 'true');
+            roleAdmin_del .selected = true;
+            roleUser_del.selected = false;
         } else if (user.roles.length === 1 && (user.roles[0].id === 2)) {
-            roleUser_del.setAttribute('selected', 'true');
+            roleAdmin_del .selected = false;
+            roleUser_del.selected = true;
         }
     })
 }

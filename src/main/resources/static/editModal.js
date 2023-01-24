@@ -18,14 +18,15 @@ async function editModalData(id) {
         age_ed.value = user.age;
         email_ed.value = user.username;
         password_ed.value = user.password;
-        console.log(user.roles)
         if (user.roles.length === 2) {
-            roleAdmin_ed.setAttribute('selected', 'true');
-            roleUser_ed.setAttribute('selected', 'true');
+            roleAdmin_ed .selected = true;
+            roleUser_ed.selected = true;
         } else if (user.roles.length === 1 && (user.roles[0].id === 1)) {
-            roleAdmin_ed.setAttribute('selected', 'true');
+            roleAdmin_ed .selected = true;
+            roleUser_ed.selected = false;
         } else if (user.roles.length === 1 && (user.roles[0].id === 2)) {
-            roleUser_ed.setAttribute('selected', 'true');
+            roleAdmin_ed .selected = false;
+            roleUser_ed.selected = true;
         }
     })
 }
