@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="roles")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "roles")
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -32,9 +32,9 @@ public class User implements UserDetails {
 
     @ManyToMany
     @JoinTable(
-            name="users_roles"
-            , joinColumns = @JoinColumn(name="user_id")
-            , inverseJoinColumns = @JoinColumn(name="role_id"))
+            name = "users_roles"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Roles> roles;
 
     public User() {
@@ -134,7 +134,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for(Roles role: getRoles()){
+        for (Roles role : getRoles()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         }
         return grantedAuthorities;

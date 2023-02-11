@@ -1,4 +1,4 @@
-const url='http://localhost:8080/api/users'
+const url = 'http://localhost:8080/api/users'
 const t_body = document.getElementById(`tbody`)
 
 async function findAll() {

@@ -10,7 +10,6 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -28,5 +27,4 @@ public class UserController {
         model.addAttribute("authorizedUser", authorizedUser);
         return "user";
     }
-
 }

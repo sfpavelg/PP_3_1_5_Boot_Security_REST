@@ -9,7 +9,6 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class Roles implements GrantedAuthority {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

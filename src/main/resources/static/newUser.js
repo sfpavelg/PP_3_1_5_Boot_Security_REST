@@ -1,6 +1,5 @@
 const form_new = document.forms["formForCreatingNewUser"];
 const roles_new = document.querySelector('#roles').selectedOptions;
-
 form_new.addEventListener("submit", ev => {
     ev.preventDefault();
     let listOfRole = [];

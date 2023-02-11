@@ -19,13 +19,13 @@ async function editModalData(id) {
         email_ed.value = user.username;
         password_ed.value = user.password;
         if (user.roles.length === 2) {
-            roleAdmin_ed .selected = true;
+            roleAdmin_ed.selected = true;
             roleUser_ed.selected = true;
         } else if (user.roles.length === 1 && (user.roles[0].id === 1)) {
-            roleAdmin_ed .selected = true;
+            roleAdmin_ed.selected = true;
             roleUser_ed.selected = false;
         } else if (user.roles.length === 1 && (user.roles[0].id === 2)) {
-            roleAdmin_ed .selected = false;
+            roleAdmin_ed.selected = false;
             roleUser_ed.selected = true;
         }
     })
